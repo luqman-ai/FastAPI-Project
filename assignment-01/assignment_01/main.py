@@ -1,3 +1,4 @@
+
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 from typing import Dict
@@ -17,41 +18,52 @@ students:list=[
 @app.get("/students")
 def student_list():
     return students
+@app.get("/student/{id}")
+def students_id(id:int=0):
+    return id
 
 @app.get("/students/{student_id}")
-def get_student(student_id: int):
+def studends_id():{}
+def get_student(student_id: int=0):
     for student in students:
-        if student["students_id"]== students_id:
+        if student_id:
+            student["student_id"]=student_id
             return student
-        return{"massage":"not found"}
-        
+        else:
+            return {"massage":"not found"}
+        return (get_student)
+    
+@app.post("/add")
+def add(a:int=1,b:int=2):
+    c=a+b
+    return (c)
+    
+    
+     
 
 @app.post("/students")
-def add student(student_id:int,name:str,age:int,class_:int,grade:str):
+def add_student(student_id:int=0,name:str="none",age:int=0,class_:int=0,grade:str="none"):
     students.append(
-       { "students_id":"students_id",
-        "Name":"name",
-        "Age":"age",
-        "Class":"class",
-        "Grade":"grade"}
+       { "student_id":"",
+        "Name":"",
+        "Age":"",
+        "class_":"",
+        "Grade":""
+      }
     )
     return students
     
 
-@app.put("/students/{student_id}")
-def update_student(students_id:int,name:str,age:int,class_:int,grade:str) 
-if student["students_id"]:students_id,
-       student["Name"]:name
-       student["Age"]:age
-        student["Class"]:class_
-        student[Grade]:grade
-    return students
-@app.delete("/students/{student_id}")
-def delete_student(student_id: int):
-    for student in students:
-    if student["students_ID"]:students_id
-    students.remove(student)
-    return students
-return {"massage":"not found"}
+@app.put("/update_students")
+def update_students(student_id:int=0,name:str="none",age:int=0,class_:int=0,grade:str="none"):
+
+       {students.students_id :"studends_id",
+        students.name:"name",
+        students.Age:"age",
+        students.class_:"class_",
+        students.Grade:"grade"
+      }
+       return students
+    
 def start():
     uvicorn.run("assignment_01.main:app",host="127.0.0.1",port=8080,reload=True)
